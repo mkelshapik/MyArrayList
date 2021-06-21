@@ -4,19 +4,19 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
     private int size = 0;
     private int capacity;
 
-    public MyArrayList(int capacity){
+    public MyArrayList(int capacity) {
         this.capacity = capacity;
         values = (E[]) new Object[capacity];
     }
 
-    public MyArrayList(){
+    public MyArrayList() {
         capacity = 10;
         values = (E[]) new Object[capacity];
     }
 
     @Override
     public void add(E e) {
-        if (capacity <= size){
+        if (capacity <= size) {
             E[] temp = values;
             values = (E[]) new Object[temp.length + 10];
             System.arraycopy(temp, 0, values, 0, temp.length);
@@ -31,15 +31,15 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
     @Override
     public void add(int index, E e) {
         if (index > size) {
-            throw new IndexOutOfBoundsException("Індекс вказаний не вірно");
-        } else if (size == capacity){
+            throw new IndexOutOfBoundsException("Індекс вказаний не вірно!");
+        } else if (size == capacity) {
             E[] temp = values;
             values = (E[]) new Object[temp.length + 10];
             System.arraycopy(temp, 0, values, 0, temp.length);
             capacity = values.length;
-        } else if (index == size){
+        } else if (index == size) {
             values[size] = e;
-        } else if (index == 0){
+        } else if (index == 0) {
             E[] temp = values;
             values = (E[]) new Object[values.length + 1];
             System.arraycopy(temp, 0, values, 1, temp.length);
@@ -48,7 +48,7 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
         } else {
             E[] temp = values;
             values = (E[]) new Object[values.length + 1];
-            System.arraycopy(temp, 0, values, 0, index - 1);
+            System.arraycopy(temp, 0, values, 0, index);
             values[index] = e;
             System.arraycopy(temp, index, values, index + 1, temp.length - index);
             capacity = values.length;
@@ -58,16 +58,31 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
 
     @Override
     public void remove(int index) {
-        /*E[] temp = values;
-        values =(E[]) new Object[temp.length - 1];
-        System.arraycopy(temp, 0, values, 0, index);
-        System.arraycopy(temp, index + 1, values, index, values.length - index);*/
-        // don`t ready
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("Індекс вказаний не вірно!");
+        } else if (index == size - 1) {
+            E[] temp = values;
+            values = (E[]) new Object[temp.length - 1];
+            System.arraycopy(temp, 0, values, 0, temp.length - 1);
+            capacity = values.length;
+        } else if (index == 0) {
+            E[] temp = values;
+            values = (E[]) new Object[temp.length - 1];
+            System.arraycopy(temp, 1, values, 0, temp.length - 1);
+            capacity = values.length;
+        } else {
+            E[] temp = values;
+            values = (E[]) new Object[temp.length - 1];
+            System.arraycopy(temp, 0, values, 0, index);
+            System.arraycopy(temp, index + 1, values, index, values.length - index);
+            capacity = values.length;
+        }
+        size--;
     }
 
     @Override
     public E get(int index) {
-        if (index >= size){
+        if (index >= size) {
             throw new IndexOutOfBoundsException("Індекс вказаний невірно!");
         }
         return values[index];
@@ -79,8 +94,11 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
     }
 
     @Override
-    public void insert(int index, E e){
-        // if index >= size ?
-        values[index] = e;
+    public void insert(int index, E e) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("Індекс вказаний не вірно!");
+        } else {
+            values[index] = e;
+        }
     }
 }
