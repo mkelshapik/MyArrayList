@@ -1,35 +1,42 @@
 public class Main {
     public static void main(String[] args) {
-        MyArrayList<Integer> listOfInt = new MyArrayList<>();
-        listOfInt.addElement(10);
-        listOfInt.addElement(18);
-        listOfInt.addElement(5);
-        listOfInt.addElement(9);
-        listOfInt.addElement(24);
+        MyArrayList<Integer> integers = new MyArrayList<>(5);
 
-        listOfInt.addWithIndex(7, 15);
+        integers.add(1);
 
-        listOfInt.addElement(45);
+        integers.add(1, 2);
+        integers.add(2, 3);
+        integers.add(3, 4);
 
-        System.out.println("Length of list is " + listOfInt.size() + ".");
+        integers.add(5);
+        integers.add(6);
+        integers.add(6);
 
-        for (int i = 0; i < listOfInt.size(); i++){
-            System.out.print(listOfInt.get(i) + " ");
-        }
-        System.out.println("");
+        integers.add(6, 7);
+        integers.add(7, 8);
+        integers.add(8, 9);
+        integers.add(9, 10);
+        integers.add(0, 0);
 
-        listOfInt.remove(0);
+        integers.removeAt(11);
+        integers.removeAt(0);
 
-        System.out.println("Length of list is " + listOfInt.size() + ".");
+        integers.add(5, 5);
 
-        for (int i = 0; i < listOfInt.size(); i++){
-            System.out.print(listOfInt.get(i) + " ");
-        }
-        System.out.println("");
+        integers.removeAt(5);
 
-        for (int i = 0; i < listOfInt.size(); i++){
-            listOfInt.set(i, i + 1);
-            System.out.print(listOfInt.get(i) + " ");
+        integers.add(0, 10);
+        integers.add(11, 15);
+
+        integers.insert(0, 0);
+        integers.insert(11, 11);
+
+        integers.remove(10);
+        integers.remove(0);
+
+        for (int i = 0; i < integers.size(); i++) {
+            System.out.print(integers.get(i) + " ");
+            System.out.println(integers.size());
         }
     }
 }

@@ -1,8 +1,9 @@
 public interface MethodsForMyArrayList <E> {
-    boolean addElement(E e);
-    boolean addWithIndex(int index, E e);
-    void remove(int index);
+    void add(E e);
+    void add(int index, E e);
+    void removeAt(int index);
+    void remove(E element);
     E get(int index);
     int size();
-    void set(int index, E e);
+    void insert(int index, E e);
 }
