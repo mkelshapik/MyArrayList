@@ -3,6 +3,7 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
     private E[] values;
     private int size = 0;
     private int capacity;
+    private static final int default_capacity = 10;
 
     public MyArrayList(int capacity) {
         this.capacity = capacity;
@@ -10,15 +11,14 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
     }
 
     public MyArrayList() {
-        capacity = 10;
-        values = (E[]) new Object[capacity];
+        values = (E[]) new Object[default_capacity];
     }
 
     @Override
     public void add(E e) {
         if (capacity <= size) {
             E[] temp = values;
-            values = (E[]) new Object[temp.length + 10];
+            values = (E[]) new Object[temp.length + default_capacity];
             System.arraycopy(temp, 0, values, 0, temp.length);
             values[temp.length] = e;
             capacity = values.length;
@@ -34,7 +34,7 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
             throw new IndexOutOfBoundsException("Індекс вказаний не вірно!");
         } else if (size == capacity) {
             E[] temp = values;
-            values = (E[]) new Object[temp.length + 10];
+            values = (E[]) new Object[temp.length + default_capacity];
             System.arraycopy(temp, 0, values, 0, temp.length);
             capacity = values.length;
         } else if (index == size) {
@@ -57,7 +57,7 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
     }
 
     @Override
-    public void remove(int index) {
+    public void removeAt(int index) {
         if (index >= size) {
             throw new IndexOutOfBoundsException("Індекс вказаний не вірно!");
         } else if (index == size - 1) {
@@ -78,6 +78,43 @@ public class MyArrayList <E> implements MethodsForMyArrayList <E> {
             capacity = values.length;
         }
         size--;
+    }
+
+    @Override
+    public void remove(E element){
+        int startSize = size;
+        for (int i = 0; i < values.length; i++){
+            if (element.equals(values[i])) {
+                if (i == size - 1) {
+                    E[] temp = values;
+                    values = (E[]) new Object[temp.length - 1];
+                    System.arraycopy(temp, 0, values, 0, temp.length - 1);
+                    capacity = values.length;
+                    size--;
+                    break;
+                } else if (i == 0) {
+                    E[] temp = values;
+                    values = (E[]) new Object[temp.length - 1];
+                    System.arraycopy(temp, 1, values, 0, temp.length - 1);
+                    capacity = values.length;
+                    size--;
+                    break;
+                } else {
+                    E[] temp = values;
+                    values = (E[]) new Object[temp.length - 1];
+                    System.arraycopy(temp, 0, values, 0, i);
+                    System.arraycopy(temp, i + 1, values, i, values.length - i);
+                    capacity = values.length;
+                    size--;
+                    break;
+                }
+            } else {
+                continue;
+            }
+        }
+        if (startSize == size){
+            throw new IllegalArgumentException("Вказанний елемент відсутній!");
+        }
     }
 
     @Override

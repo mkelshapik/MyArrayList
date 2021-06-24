@@ -18,18 +18,21 @@ public class Main {
         integers.add(9, 10);
         integers.add(0, 0);
 
-        integers.remove(11);
-        integers.remove(0);
+        integers.removeAt(11);
+        integers.removeAt(0);
 
         integers.add(5, 5);
 
-        integers.remove(5);
+        integers.removeAt(5);
 
         integers.add(0, 10);
         integers.add(11, 15);
 
         integers.insert(0, 0);
         integers.insert(11, 11);
+
+        integers.remove(10);
+        integers.remove(0);
 
         for (int i = 0; i < integers.size(); i++) {
             System.out.print(integers.get(i) + " ");
